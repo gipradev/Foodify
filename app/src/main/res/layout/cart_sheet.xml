@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:padding="5dp"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="70dp"
+    android:visibility="gone"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+
+    <LinearLayout
+        android:id="@+id/linearCart"
+        android:foreground="?selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/cartview_background"
+        >
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/countText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 ITEM"
+                android:textColor="@color/colorLight">
+
+            </TextView>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="5dp"></View>
+
+            <TextView
+                android:id="@+id/totalSum"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$ 150.00 plus taxes"
+                android:textColor="@color/colorLight"
+                android:textStyle="bold"
+                android:textSize="15dp">
+
+            </TextView>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="0dp"></View>
+
+        <Button
+            android:layout_gravity="center"
+            android:gravity="right|center"
+            android:id="@+id/viewButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorLight"
+            android:background="@null"
+            android:text="View Cart"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:drawableRight="@drawable/ic_right"
+            >
+        </Button>
+    </LinearLayout>
+</LinearLayout>

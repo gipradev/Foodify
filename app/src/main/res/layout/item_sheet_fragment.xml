@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_dialogue"
+    android:orientation="vertical"
+
+    >
+    <!--    style="@style/AppBottomSheetDialogTheme"-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:orientation="horizontal"
+
+            android:padding="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:elevation="10dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:id="@+id/itemImage"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/ic_launcher"
+                    android:scaleType="centerCrop" />
+
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="0dp"></View>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/cat"
+                    android:layout_width="13dp"
+                    android:layout_height="12dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/veg"></Button>
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="0dp">
+
+                </View>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/itemName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Loading Name"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15dp"></TextView>
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="0dp">
+
+                    </View>
+
+                    <TextView
+                        android:id="@+id/itemPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Loading Price"
+                        android:textColor="@color/blue_700"
+                        android:textSize="12dp"
+                        android:textStyle="bold"></TextView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"></View>
+
+            <ProgressBar
+                android:id="@+id/progressDialogue"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-20dp"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/colorAccent"
+                android:max="100"
+                android:progress="10"
+                android:secondaryProgress="25"
+                android:visibility="visible"></ProgressBar>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/emptyCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/subMenuLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/msgText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Choice of Size"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15dp"
+                    android:textStyle="normal"></TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Required"
+                    android:textStyle="italic"></TextView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/submenuList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"></androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:padding="5dp">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"></View>
+
+                <Button
+                    android:id="@+id/minusButton"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/ic_minus"
+                    android:enabled="false"
+                    android:foreground="?android:attr/selectableItemBackground"></Button>
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="0dp"></View>
+
+                <TextView
+                    android:id="@+id/cartCount"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="40dp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="0dp"></View>
+
+                <Button
+                    android:id="@+id/plusButton"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/ic_plus"
+                    android:enabled="false"
+                    android:foreground="?android:attr/selectableItemBackground"></Button>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"></View>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+
+                >
+
+                <TextView
+                    android:id="@+id/addToCart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/add_to_cart_disables"
+                    android:enabled="false"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="ADD"
+                    android:textColor="@color/colorLight"
+                    android:textSize="15dp"
+                    android:textStyle="bold"></TextView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/itemsInCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:visibility="gone">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/cartList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+
+            <Button
+                android:id="@+id/addMore"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="left"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="?selectableItemBackground"
+                android:foreground="?selectableItemBackground"
+                android:padding="5dp"
+                android:text=" + ADD MORE OPTIONS"
+                android:textColor="@color/colorAccent"></Button>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+

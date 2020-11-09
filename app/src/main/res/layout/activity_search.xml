@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.SearchActivity">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/colorAccent"
+        android:visibility="visible">
+
+        <Button
+            android:id="@+id/backArrow"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="0dp"
+            android:background="@drawable/ic_left_arrow"
+            android:visibility="gone">
+
+        </Button>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_marginTop="@dimen/dimen_30"
+        android:background="@drawable/white_inside_box"
+        android:orientation="horizontal">
+
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            style="@style/SearchViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:clickable="true"
+            android:gravity="left"
+            app:iconifiedByDefault="false" />
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="86dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="0dp">
+
+
+            <ProgressBar
+                android:id="@+id/progressDialogue"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-4dp"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/colorAccent"
+                android:max="100"
+                android:progress="10"
+                android:secondaryProgress="25"
+                android:visibility="invisible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/itemRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/categoryText"
+                android:layout_marginTop="0dp"
+                android:padding="10dp"></androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cartView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:elevation="10dp"
+        android:foreground="?selectableItemBackground"
+        android:visibility="gone"
+        app:cardCornerRadius="15dp"
+        app:contentPadding="5dp"
+        card_view:cardPreventCornerOverlap="true">
+    <LinearLayout
+        android:foreground="?selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/cartview_background"
+        android:layout_alignParentBottom="true"
+        >
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/countText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 ITEM"
+                android:textColor="@color/colorLight">
+
+            </TextView>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="5dp"></View>
+
+            <TextView
+                android:id="@+id/totalSum"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$ 150.00 plus taxes"
+                android:textColor="@color/colorLight"
+                android:textStyle="bold"
+                android:textSize="15dp">
+
+            </TextView>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="0dp"></View>
+
+        <Button
+            android:layout_gravity="center"
+            android:gravity="right|center"
+            android:id="@+id/viewButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorLight"
+            android:background="?selectableItemBackground"
+            android:text="View Cart"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:drawableRight="@drawable/ic_right"
+            >
+        </Button>
+    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

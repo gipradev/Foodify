@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_centerHorizontal="true"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    app:cardCornerRadius="10dp"
+    app:contentPadding="2dp"
+    android:layout_centerInParent="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="50dp"
+        android:background="@drawable/gradient_recycle">
+
+
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_bin"></ImageView>
+
+        <TextView
+
+            android:id="@+id/msgText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:text="Delete Order  ?"
+            android:textColor="@android:color/black"
+            android:textSize="15dp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="?actionBarSize"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/blue_border"
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:id="@+id/btn_yes"
+                android:layout_width="100dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_height="40dp"
+                android:clickable="true"
+                android:text="Yes"
+                android:background="@null"
+                android:textColor="@color/colorLight"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorLight"></View>
+            <Button
+                android:id="@+id/btn_no"
+                android:layout_width="100dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:background="@null"
+                android:clickable="true"
+                android:text="No"
+                android:textColor="@color/colorLight"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+
+

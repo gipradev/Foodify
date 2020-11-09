@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp">
+    
+    <View
+        android:layout_width="5dp"
+        android:layout_height="0dp"
+        ></View>
+
+    <TextView
+        android:id="@+id/itemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorGrey"
+        android:textSize="15dp"
+        android:text="Item Name">
+
+    </TextView>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"></View>
+
+    <TextView
+        android:id="@+id/quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorGrey"
+        android:textSize="15dp"
+        android:text="count">
+
+    </TextView>
+
+    <View
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        ></View>
+    <Button
+        android:id="@+id/removeButton"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:visibility="visible"
+        android:background="@drawable/ic_delete"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+
+        >
+
+    </Button>
+</LinearLayout>
+

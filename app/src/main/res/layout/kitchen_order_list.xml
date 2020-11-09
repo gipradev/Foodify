@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="5dp"
+    app:contentPadding="5dp"
+    card_view:cardElevation="4dp"
+    card_view:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--        <androidx.cardview.widget.CardView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:cardUseCompatPadding="true"-->
+        <!--            app:cardElevation="1dp"-->
+        <!--            app:cardCornerRadius="5dp">-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/chairId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CHAIR NO."
+                    android:textColor="@color/colorAccent"
+                    android:textSize="15dp"></TextView>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="5dp"></View>
+
+                <TextView
+                    android:id="@+id/orderId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="ORDER NO."
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15dp"></TextView>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"></View>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/orderDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="DATE , TIME"
+                    android:textColor="@color/colorBlack"></TextView>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="5dp"></View>
+
+                <TextView
+                    android:id="@+id/orderStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="18dp"
+                    android:layout_gravity="right"
+                    android:text=""
+                    android:textColor="@color/blue_700"></TextView>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewOptions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:paddingLeft="10dp"
+                android:text="&#8942;"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!--        </androidx.cardview.widget.CardView>-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/itemList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+                <LinearLayout
+                    android:id="@+id/acceptButton"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/curve_border"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <View
+                        android:layout_width="30dp"
+                        android:layout_height="0dp"></View>
+
+                    <Button
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/ic_shopping_bag">
+
+                    </Button>
+
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="0dp"></View>
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="27dp"
+
+                        android:gravity="center"
+                        android:text=" ACCEPT  "
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"></TextView>
+
+                    <View
+                        android:layout_width="30dp"
+                        android:layout_height="0dp"></View>
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="0dp"></View>
+
+
+                <LinearLayout
+                    android:id="@+id/buttonFinish"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/black_border"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <View
+                        android:layout_width="30dp"
+                        android:layout_height="0dp"></View>
+
+                    <Button
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/ic_check">
+
+                    </Button>
+
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="0dp"></View>
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Finished"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold"></TextView>
+
+                    <View
+                        android:layout_width="30dp"
+                        android:layout_height="0dp"></View>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00ABE9</color>
+    <color name="PrimaryAccent">#78CCE7</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#F0E94949</color>
+    <color name="colorRedAccent">#D81F1F</color>
+    <color name="colorGrey">#9C9A9A</color>
+    <color name="colorBlack">#F0000000</color>
+    <color name="colorLight">#FFFFFF</color>
+
+
+
+    <color name="hint_label">#4E4E4E</color>
+    <color name="colorAccentOne">#ffe01b</color>
+    <color name="bg_input_form">#FFEB6E</color>
+    <color name="red_100">#F44336</color>
+    <color name="red_300">#3F51B5</color>
+    <color name="red_500">#9C27B0</color>
+    <color name="red_700">#2196F3</color>
+    <color name="blue_100">#00BCD4</color>
+    <color name="blue_300">#7BAAF7</color>
+    <color name="blue_500">#009688</color>
+    <color name="blue_700">#3367D6</color>
+    <color name="green_100">#CDDC39</color>
+    <color name="green_300">#57BB8A</color>
+    <color name="green_500">#673AB7</color>
+    <color name="green_700">#0B8043</color>
+
+</resources>

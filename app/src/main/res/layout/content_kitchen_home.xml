@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Activities.KitchenHome"
+    tools:showIn="@layout/activity_kitchen_home">
+
+    <ProgressBar
+        android:id="@+id/progressDialogue"
+        android:layout_marginTop="54dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:indeterminateTint="@color/colorPrimary"
+        android:indeterminate="true"
+        android:max="100"
+        android:progress="10"
+        android:secondaryProgress="25"
+        tools:ignore="MissingConstraints" />
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:id="@+id/refreshLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/orderList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layoutAnimation="@anim/layout_animation_up_to_down"/>
+
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+            </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

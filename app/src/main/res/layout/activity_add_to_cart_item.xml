@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".Activities.FoodItemDetails">
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                >
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:textColor="#FFF"
+                    android:textSize="25dp"
+                    android:visibility="visible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:gravity="center" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+
+    <ProgressBar
+        android:id="@+id/progressDialogue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="?actionBarSize"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:indeterminateTint="@color/colorPrimary"
+        android:indeterminate="true"
+        android:max="100"
+        android:progress="10"
+        android:secondaryProgress="25"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize"
+        android:padding="5dp">
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+            <LinearLayout
+                android:padding="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center|left">
+<!--                <Button-->
+<!--                    android:layout_width="20dp"-->
+<!--                    android:layout_height="20dp"></Button>-->
+<!--                <View-->
+<!--                    android:layout_width="10dp"-->
+<!--                    android:layout_height="0dp">-->
+
+<!--                </View>-->
+                <TextView
+                    android:id="@+id/itemName"
+                    android:text="Masala Dosa"
+                    android:textColor="#000"
+                    android:textSize="17dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                </TextView>
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="0dp">
+
+                </View>
+                <TextView
+                    android:id="@+id/itemCat"
+                    android:textStyle="italic"
+                    android:text="Masala Dosa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                </TextView>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"></View>
+                <TextView
+                    android:id="@+id/itemPrice"
+                    android:textStyle="bold"
+                    android:text="Masala Dosa"
+                    android:textColor="#3949AB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/subMenuLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp">
+                <TextView
+                    android:id="@+id/msgText"
+                    android:textStyle="normal"
+                    android:layout_marginTop="5dp"
+                    android:textSize="15dp"
+                    android:textColor="#000"
+                    android:text="Choice of Size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                </TextView>
+                <TextView
+                    android:textStyle="italic"
+                    android:layout_marginTop="5dp"
+                    android:text="Required"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                </TextView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/submenuList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:padding="5dp"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"></View>
+
+            <Button
+                android:id="@+id/minusButton"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:enabled="false"
+                android:background="@drawable/ic_remove_button"
+                android:foreground="?android:attr/selectableItemBackground">
+            </Button>
+            <View
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                ></View>
+            <TextView
+                android:id="@+id/cartCount"
+                android:layout_width="60dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_height="60dp"
+                android:text="0"
+                android:textColor="#000"
+                android:textSize="40dp"
+                android:background="?selectableItemBackground">
+
+            </TextView>
+            <View
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                ></View>
+            <Button
+                android:id="@+id/plusButton"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:enabled="false"
+                android:background="@drawable/ic_add_button"
+                android:foreground="?android:attr/selectableItemBackground">
+            </Button>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"></View>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/addToCart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#FFF"
+                android:gravity="center"
+                android:enabled="false"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:background="#7C7676"
+                android:text="ADD"
+                android:textAllCaps="true"
+                android:foreground="?selectableItemBackground"
+                >
+            </TextView>
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
