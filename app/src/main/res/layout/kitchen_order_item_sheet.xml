@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/bottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="30dp"
+    android:background="@android:color/white"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="56dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order Details"
+        android:layout_margin="15dp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textColor="@color/colorAccent"></TextView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorGrey"
+        android:layout_gravity="center"></View>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/orderItemListRecycler"
+        android:padding="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>

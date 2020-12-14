@@ -10,7 +10,6 @@
 
     <ProgressBar
         android:id="@+id/progressDialogue"
-        android:layout_marginTop="54dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="invisible"

@@ -103,11 +103,21 @@
 
         </LinearLayout>
 
-        <!--        </androidx.cardview.widget.CardView>-->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="view order details"
+            android:layout_margin="16dp"
+            app:cornerRadius="8dp"
+            android:backgroundTint="@color/PrimaryAccent"
+            android:id="@+id/viewDetailsButton"/>
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp">
 

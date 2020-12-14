@@ -13,8 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -23,7 +21,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
@@ -60,9 +57,6 @@ public class RecyclerKitchenOrder extends RecyclerView.Adapter<RecyclerKitchenOr
     private SharedPreferences user;
     private String userID, shopID;
 
-    private int flag1;
-    private int flag2;
-
 
     public RecyclerKitchenOrder(Context applicationContext, KitchenHome activity, JSONArray jsonArray,
                                 OrderAdapterListener adapterListener, View view) {
@@ -85,7 +79,7 @@ public class RecyclerKitchenOrder extends RecyclerView.Adapter<RecyclerKitchenOr
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.kitchen_order_list, null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.kitchen_order_list, null);
 
 
         return new MyViewHolder(view);
@@ -103,20 +97,25 @@ public class RecyclerKitchenOrder extends RecyclerView.Adapter<RecyclerKitchenOr
             holder.order.setText("ORDER No.  : #" + jsonObject.getString("orderid"));
             holder.orderDate.setText(jsonObject.getString("date"));
 
-            //******************************set Items*******************************************
-            JSONArray itemArray = jsonObject.getJSONArray("item");
-
-            RecyclerOrderItems recyclerOrderItems = new RecyclerOrderItems(context, itemArray,
-                    array.getJSONObject(position).getString("order_status"), holder);
-
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-            holder.itemList.setLayoutManager(linearLayoutManager);
-            holder.itemList.setAdapter(recyclerOrderItems);
-            //**********************************************************************************
 
             String orderId = array.getJSONObject(position).getString("orderid");
             setChanges(shopID, orderId, holder);//check item status
+
+            holder.viewDetailsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    try {
+                        JSONArray itemArray = array.getJSONObject(position).getJSONArray("item");
+                        listener.onViewDetails(position, shopID,itemArray);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            });
 
 
             holder.acceptButton.setOnClickListener(new View.OnClickListener() {
@@ -126,9 +125,14 @@ public class RecyclerKitchenOrder extends RecyclerView.Adapter<RecyclerKitchenOr
 
                         String order_id = array.getJSONObject(position).getString("orderid");
 
-                        ProcessDialogClass cdd = new ProcessDialogClass
-                                (kitchenActivity, shopID, order_id, "accept", holder, position);
-                        cdd.show();
+
+                        Map<String, String> map = new HashMap<>();
+                        map.put("position", String.valueOf(position));
+                        map.put("order_id", order_id);
+                        map.put("action", "accept");
+
+                       // listener.onAcceptOrder(position, shopID, order_id, "accept");
+                        listener.onProcessOrder(map);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -146,9 +150,13 @@ public class RecyclerKitchenOrder extends RecyclerView.Adapter<RecyclerKitchenOr
                         String order_id = array.getJSONObject(position).getString("orderid");
                         //processOrder(shopID,order_id,"finish", holder);
 
-                        ProcessDialogClass cdd = new ProcessDialogClass
-                                (kitchenActivity, shopID, order_id, "finish", holder, position);
-                        cdd.show();
+                        Map<String, String> map = new HashMap<>();
+                        map.put("position", String.valueOf(position));
+                        map.put("order_id", order_id);
+                        map.put("action", "finish");
+
+                        listener.onProcessOrder(map);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -197,7 +205,7 @@ public class RecyclerKitchenOrder extends RecyclerView.Adapter<RecyclerKitchenOr
                 WebServices.BaseUrl + "Get_Cart_Status", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e(TAG, "Response" + response);
+                Log.e(TAG, "setChanges" + response);
                 try {
                     JSONObject object = new JSONObject(response.trim());
                     if (object.getString("status").equals("1")) {
@@ -242,21 +250,16 @@ public class RecyclerKitchenOrder extends RecyclerView.Adapter<RecyclerKitchenOr
             if (orderStatus.equals("0")) {
                 holder.orderStatus.setText("New Arrival");
                 holder.acceptButton.setVisibility(View.VISIBLE);
-                //holder.finishedText.setVisibility(View.GONE);
                 holder.finishButton.setVisibility(View.GONE);
 
             } else if (orderStatus.equals("1")) {
                 holder.acceptButton.setVisibility(View.GONE);
                 holder.finishButton.setVisibility(View.VISIBLE);
-                // holder.finishedText.setVisibility(View.GONE);
                 holder.orderStatus.setText("Processing...");
 
             } else if (orderStatus.equals("2")) {
                 holder.orderStatus.setText("Completed");
-//                holder.finishButton.setVisibility(View.GONE);h
-//                holder.acceptButton.setVisibility(View.GONE);
-//                holder.finishedText.setVisibility(View.VISIBLE);
-//                holder.finishedText.startAnimation((Animation) AnimationUtils.loadAnimation(context, R.anim.linear_animation));
+                holder.finishButton.setVisibility(View.GONE);
 
             }
         } catch (Exception e) {
@@ -272,6 +275,12 @@ public class RecyclerKitchenOrder extends RecyclerView.Adapter<RecyclerKitchenOr
             Log.e(TAG, "id   " + order_id);
 
 
+            Map<String, String> map = new HashMap<>();
+            map.put("position", String.valueOf(position));
+            map.put("order_id", order_id);
+            map.put("action", "remove");
+
+
             if (array.getJSONObject(position).getString("order_status").equals("Processing") ||
                     array.getJSONObject(position).getString("order_status").equals("Done")) {
 
@@ -279,10 +288,12 @@ public class RecyclerKitchenOrder extends RecyclerView.Adapter<RecyclerKitchenOr
                         .make(view, "This Order can't be deleted...", Snackbar.LENGTH_LONG);
                 snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
                 snackbar.show();
+
             } else {
 
-                DeleteDialogClass cdd = new DeleteDialogClass(kitchenActivity, order_id, position);
-                cdd.show();
+                listener.onCancelOrder(map);
+
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -290,74 +301,11 @@ public class RecyclerKitchenOrder extends RecyclerView.Adapter<RecyclerKitchenOr
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void removeOrder(final String shop_id, final String order_id, final int position) {
-//        progressBar.setVisibility(View.VISIBLE);
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                WebServices.BaseUrl + "Cancel_Order_Item", new Response.Listener<String>() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "Response" + response);
-                try {
-
-                    JSONObject object = new JSONObject(response.trim());
-                    String status = object.getString("status");
-                    if (status.equals("1")) {
-//                        progressBar.setVisibility(View.INVISIBLE);
-//
-                        removeOrderItem(position);
-
-
-                    } else {
-                        // progressBar.setVisibility(View.INVISIBLE);
-                        Snackbar snackbar = Snackbar
-                                .make(view, "ERROR", Snackbar.LENGTH_LONG);
-                        snackbar.show();
-                        //progressBar.setVisibility(View.GONE);
-
-
-                    }
-
-                } catch (JSONException e) {
-                    Log.e(TAG, "Exception" + e);
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                Log.e(TAG, "VolleyError" + volleyError);
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> map = new HashMap<>();
-
-                map.put("login_id", shop_id);
-                map.put("order_id", order_id);
-
-
-                return map;
-            }
-        };
-        requestQueue.add(stringRequest);
-
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void removeOrderItem(int position) {
         array.remove(position);
         notifyItemRemoved(position);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-
-            public void run() {
-                // getOrders(shopID);
-            }
-        }, 1000);
 
 
     }
@@ -369,6 +317,7 @@ public class RecyclerKitchenOrder extends RecyclerView.Adapter<RecyclerKitchenOr
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private final CardView item;
+        private final Button viewDetailsButton;
         // private final TextView finishedText;
         LinearLayout acceptButton, layoutItem, finishButton;
         TextView chair, order, totalPrice, orderStatus, orderDate, menu;
@@ -388,6 +337,7 @@ public class RecyclerKitchenOrder extends RecyclerView.Adapter<RecyclerKitchenOr
             orderDate = (TextView) itemView.findViewById(R.id.orderDate);
             acceptButton = (LinearLayout) itemView.findViewById(R.id.acceptButton);
             finishButton = (LinearLayout) itemView.findViewById(R.id.buttonFinish);
+            viewDetailsButton = (Button) itemView.findViewById(R.id.viewDetailsButton);
             item = (CardView) itemView.findViewById(R.id.content);
             itemList = (RecyclerView) itemView.findViewById(R.id.itemList);
             menu = (TextView) itemView.findViewById(R.id.textViewOptions);
@@ -401,340 +351,6 @@ public class RecyclerKitchenOrder extends RecyclerView.Adapter<RecyclerKitchenOr
     }
 
 
-    //***************************************************alert Box********************************************************
-    public class  ProcessDialogClass extends Dialog implements
-            View.OnClickListener {
-
-
-        private final MyViewHolder myHolder;
-        private final String shopID;
-        private final String orderId;
-        private final String action;
-        private final int index;
-        public Activity activity;
-        public Dialog d;
-        public Button yes, no;
-        private TextView message;
-
-        public ProcessDialogClass(Activity activity, String shopID, String order_id, String action, MyViewHolder holder, int position) {
-            super(activity);
-            // TODO Auto-generated constructor stub
-            this.activity = activity;
-            this.myHolder = holder;
-            this.shopID = shopID;
-            this.orderId = order_id;
-            this.action = action;
-            this.index = position;
-
-
-        }
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-            setContentView(R.layout.custome_alert_dialogue);
-            message = (TextView) findViewById(R.id.msgText);
-            yes = (Button) findViewById(R.id.btn_yes);
-            no = (Button) findViewById(R.id.btn_no);
-
-            message.setText("Conform to " + action + " order..!");
-            yes.setOnClickListener(this);
-            no.setOnClickListener(this);
-
-        }
-
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btn_yes:
-
-                    // processOrder(shopID, orderId, action, myHolder);
-
-                    listener.onAcceptOrder(index, shopID, orderId, action);
-
-                    break;
-                case R.id.btn_no:
-                    dismiss();
-                    break;
-                default:
-                    break;
-            }
-            dismiss();
-        }
-
-    }
-    //***********************************************************************************************************
-
-
-    //*************************************************DeleteDialogClass **********************************************************
-    public class DeleteDialogClass extends Dialog implements
-            View.OnClickListener {
-
-        private final String orderID;
-        private final int index;
-        public Context activity;
-        public Dialog d;
-        public Button yes, no;
-        private TextView message;
-
-        public DeleteDialogClass(Activity activity, String value, int position) {
-            super(activity);
-            // TODO Auto-generated constructor stub
-            this.activity = activity;
-            this.orderID = value;
-            this.index = position;
-        }
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-            setContentView(R.layout.alert_box_remove_order);
-            message = (TextView) findViewById(R.id.msgText);
-            yes = (Button) findViewById(R.id.btn_yes);
-            no = (Button) findViewById(R.id.btn_no);
-
-            message.setText("Do you want to Delete.?");
-            yes.setOnClickListener(this);
-            no.setOnClickListener(this);
-
-        }
-
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btn_yes:
-
-                    listener.onCancelOrder(index, orderID);
-
-                    break;
-                case R.id.btn_no:
-                    dismiss();
-                    break;
-                default:
-                    break;
-            }
-            dismiss();
-        }
-    }
-
-    //***************************************************************************************************************************
-    public class RecyclerOrderItems extends RecyclerView.Adapter<RecyclerOrderItems.MyViewHolder> {
-        private final Context context;
-        private final JSONArray array;
-        private final RecyclerKitchenOrder.MyViewHolder orderHolder;
-        private JSONObject jsonObject;
-
-
-        public RecyclerOrderItems(Context applicationContext, JSONArray jsonArray, String order_status,
-                                  RecyclerKitchenOrder.MyViewHolder holder) {
-            this.context = applicationContext;
-            this.array = jsonArray;
-            this.orderHolder = holder;
-        }
-
-        @NonNull
-        @Override
-        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(context).inflate(R.layout.order_items, null);
-            return new MyViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-            try {
-
-                jsonObject = array.getJSONObject(position);
-
-                char first = 0;
-                String myString = jsonObject.getString("item_name");
-                String upperString = myString.substring(0, 1).toUpperCase() + myString.substring(1);
-
-                if (!jsonObject.getString("subid").equals("0")) {
-                    first = jsonObject.getString("submenu_name").charAt(0);
-                    holder.name.setText(upperString + "   (" + first + ")");
-                } else {
-                    holder.name.setText(upperString);
-                }
-
-                holder.itemCount.setText(jsonObject.getString("quantity") + " pcs");
-
-
-                if (!jsonObject.getString("item_status").equals("PENDING")) {
-                    holder.removeButton.setVisibility(View.INVISIBLE);
-                }
-
-
-                holder.removeButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        try {
-                            String order_id = array.getJSONObject(position).getString("order_id");
-                            String product_id = array.getJSONObject(position).getString("productid");
-
-
-                            DeleteItemDialogClass cdd = new DeleteItemDialogClass
-                                    (context, order_id, product_id, shopID, position);
-                            cdd.show();
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-        }
-
-
-        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-        public void removeProductItem(int position) {
-
-
-            array.remove(position);
-            notifyItemRemoved(position);
-            //getCartData(userID,chairId);
-
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return array.length();
-        }
-
-        public class MyViewHolder extends RecyclerView.ViewHolder {
-            LinearLayout layoutItem;
-            TextView name, size, price, itemCount, itemTotal;
-            Button removeButton;
-
-            public MyViewHolder(@NonNull View itemView) {
-                super(itemView);
-                layoutItem = (LinearLayout) itemView.findViewById(R.id.layoutItem);
-                name = itemView.findViewById(R.id.itemName);
-                price = itemView.findViewById(R.id.itemPrice);
-                itemCount = (TextView) itemView.findViewById(R.id.quantity);
-                removeButton = (Button) itemView.findViewById(R.id.removeButton);
-
-            }
-        }
-
-
-        public class DeleteItemDialogClass extends Dialog implements
-                View.OnClickListener {
-
-            private final String orderID;
-            private final int index;
-            private final String shopId;
-            private final String productId;
-            public Context activity;
-            public Dialog d;
-            public Button yes, no;
-            private TextView message;
-
-            public DeleteItemDialogClass(Context activity, String value, String product_id, String shopID, int position) {
-                super(activity);
-                // TODO Auto-generated constructor stub
-                this.activity = activity;
-                this.orderID = value;
-                this.shopId = shopID;
-                this.productId = product_id;
-                this.index = position;
-            }
-
-            @Override
-            protected void onCreate(Bundle savedInstanceState) {
-                super.onCreate(savedInstanceState);
-                requestWindowFeature(Window.FEATURE_NO_TITLE);
-                setContentView(R.layout.custome_alert_dialogue);
-                message = (TextView) findViewById(R.id.msgText);
-                yes = (Button) findViewById(R.id.btn_yes);
-                no = (Button) findViewById(R.id.btn_no);
-
-                message.setText("Do you want Delete.?");
-                yes.setOnClickListener(this);
-                no.setOnClickListener(this);
-
-            }
-
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.btn_yes:
-
-                        removeItem(orderID, productId, shopID, index);
-
-                        break;
-                    case R.id.btn_no:
-                        dismiss();
-                        break;
-                    default:
-                        break;
-                }
-                dismiss();
-            }
-        }
-
-        private void removeItem(final String order_id, final String product_id, final String shopID, final int position) {
-            RequestQueue requestQueue = Volley.newRequestQueue(context);
-            StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                    WebServices.BaseUrl + "Cancel_Order_Item", new Response.Listener<String>() {
-                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-                @Override
-                public void onResponse(String response) {
-                    Log.e(TAG, "Response" + response);
-                    try {
-
-                        JSONObject object = new JSONObject(response.trim());
-                        String status = object.getString("status");
-                        if (status.equals("1")) {
-
-                            removeProductItem(position);
-
-                        } else {
-
-                            Snackbar snackbar = Snackbar
-                                    .make(view, "ERROR", Snackbar.LENGTH_LONG);
-                            snackbar.show();
-                            //progressBar.setVisibility(View.GONE);
-
-
-                        }
-
-                    } catch (JSONException e) {
-                        Log.e(TAG, "Exception" + e);
-                    }
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError volleyError) {
-                    Log.e(TAG, "VolleyError" + volleyError);
-                }
-            }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> map = new HashMap<>();
-                    Log.e(TAG, userID + "");
-                    map.put("login_id", shopID);
-                    map.put("order_id", order_id);
-                    map.put("product_id", product_id);
-
-                    return map;
-                }
-            };
-            requestQueue.add(stringRequest);
-
-
-        }
-
-
-    }
 
     //***************************************************************************************************************************
     public void updateItem(int position) {
@@ -746,9 +362,13 @@ public class RecyclerKitchenOrder extends RecyclerView.Adapter<RecyclerKitchenOr
 
     public interface OrderAdapterListener {
 
-        void onAcceptOrder(int index, String shopID, String orderId, String action);
+        void onProcessOrder(Map<String, String> map);
 
-        void onCancelOrder(int index, String orderID);
+     //   void onAcceptOrder(int index, String shopID, String orderId, String action);
+
+        void onCancelOrder(Map<String, String> map);
+
+        void onViewDetails(int index, String orderId ,JSONArray array);
     }
 
 
